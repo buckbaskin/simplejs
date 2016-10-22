@@ -3,7 +3,9 @@
 README.md linguist-documentation
 
 # really just ignoring for the language stats
-*.html linguist-vendored
+*.html linguist-
+
+Linguist::FileBlob.new("simple.js").generated?
 
 ### begin generated attribute information ###
 

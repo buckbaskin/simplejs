@@ -16,7 +16,7 @@ simple.Element.prototype.special_keys = {
     id: 1, className: 1, classList: 1, attributes: 1, innerHTML: 1,
     outerHTML: 1, scrollTop: 1, scrollLeft: 1, scrollWidth: 1, scrollHeight: 1,
     clientTop: 1, clientLeft: 1, clientWidth: 1, clientHeight: 1, tagName: 1,
-    text: 1, textContent: 1, title: 1, type: 1, src: 1
+    text: 1, textContent: 1, title: 1, type: 1, src: 1,
 };
 simple.Element.prototype.build = function build(html_element) {
     console.log('Element.build(' + html_element + ')');
@@ -37,19 +37,41 @@ simple.Element.prototype.build = function build(html_element) {
     return this;
 };
 simple.Element.prototype.render = function render() {
+    if (this.tagName === 'SCRIPT') {
+        return this.renderAsScript();
+    }
     var startHtml = '<div>';
     var endHtml = '</div>';
-    if (this.tagName === 'SCRIPT') {
-        startHtml = '<script';
-        if (this.type !== undefined) {
-            startHtml += ' type="' + this.type + '"';
-        }
-        if (this.src !== undefined) {
-            startHtml += ' src="' + this.src + '"';
-        }
-        startHtml += '>';
-        endHtml = '</script>';
+    var innerHtmlList = [];
+    for (var i = this.children.length - 1; i >= 0; i--) {
+        var child = this.children[i];
+        innerHtmlList.push(child.render());
     }
+    ;
+    if (innerHtmlList.length === 0) {
+        this.innerHtml = '';
+    }
+    else {
+        this.innerHtml = innerHtmlList.join('\n');
+    }
+    if (this.innerHtml === '') {
+        this.outerHtml = startHtml + endHtml;
+    }
+    else {
+        this.outerHtml = startHtml + '\n' + this.innerHtml + '\n' + endHtml;
+    }
+    return this.outerHtml;
+};
+simple.Element.prototype.renderScript = function renderAsScript() {
+    var startHtml = '<script';
+    if (this.type !== undefined) {
+        startHtml += ' type="' + this.type + '"';
+    }
+    if (this.src !== undefined) {
+        startHtml += ' src="' + this.src + '"';
+    }
+    startHtml += '>';
+    var endHtml = '</script>';
     var innerHtmlList = [];
     for (var i = this.children.length - 1; i >= 0; i--) {
         var child = this.children[i];

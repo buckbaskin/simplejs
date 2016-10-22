@@ -44,19 +44,41 @@ simple.Element.prototype.build = function build(html_element) {
   return this;
 }
 simple.Element.prototype.render = function render() {
+  if (this.tagName === 'SCRIPT') {
+    return this.renderAsScript();
+  }
   var startHtml = '<div>';
   var endHtml = '</div>';
-  if (this.tagName === 'SCRIPT') {
-    startHtml = '<script';
-    if (this.type !== undefined) {
-      startHtml += ' type="'+this.type+'"';
-    }
-    if (this.src !== undefined) {
-      startHtml += ' src="'+this.src+'"';
-    }
-    startHtml += '>';
-    endHtml = '</script>';
+  
+  var innerHtmlList = [];
+  
+  for (var i = this.children.length - 1; i >= 0; i--) {
+    var child = this.children[i];
+    innerHtmlList.push(child.render());
+  };
+  if (innerHtmlList.length === 0) {
+    this.innerHtml = '';
+  } else {
+    this.innerHtml = innerHtmlList.join('\n');
   }
+  if (this.innerHtml === '') {
+    this.outerHtml = startHtml+endHtml;
+  } else {
+    this.outerHtml = startHtml +'\n' + this.innerHtml + '\n' + endHtml;
+  }
+  return this.outerHtml;
+}
+simple.Element.prototype.renderScript = function renderAsScript() {
+  var startHtml = '<script';
+  if (this.type !== undefined) {
+    startHtml += ' type="'+this.type+'"';
+  }
+  if (this.src !== undefined) {
+    startHtml += ' src="'+this.src+'"';
+  }
+  startHtml += '>';
+  var endHtml = '</script>';
+
   var innerHtmlList = [];
   
   for (var i = this.children.length - 1; i >= 0; i--) {

@@ -3,7 +3,7 @@
 README.md linguist-documentation
 
 # really just ignoring for the language stats
-*.html linguist-
+*.html linguist-vendored
 
 Linguist::FileBlob.new("simple.js").generated?
 

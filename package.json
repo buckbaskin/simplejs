@@ -1,0 +1,32 @@
+{
+  "name": "simplejs",
+  "version": "0.0.1",
+  "description": "Do web page manipulation in a simple way.",
+  "main": "simple.js",
+  "dependencies": {
+    "typescript": "^2.0.3"
+  },
+  "devDependencies": {
+    'typescript'
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/buckbaskin/simplejs.git"
+  },
+  "keywords": [
+    "HTML",
+    "JavaScript",
+    "simplejs",
+    "simple",
+    "render"
+  ],
+  "author": "Buck Baskin",
+  "license": "MIT License, LICENSE.md",
+  "bugs": {
+    "url": "https://github.com/buckbaskin/simplejs/issues"
+  },
+  "homepage": "https://github.com/buckbaskin/simplejs/blob/master/README.md"
+}

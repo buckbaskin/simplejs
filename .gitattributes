@@ -2,9 +2,10 @@
 
 README.md linguist-documentation
 
-*.html linguist-vendored # really just ignoring for the language stats
+# really just ignoring for the language stats
+*.html linguist-vendored
 
-####
+### begin generated attribute information ###
 
 # Auto detect text files and perform LF normalization
 * text=auto

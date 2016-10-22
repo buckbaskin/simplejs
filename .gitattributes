@@ -5,8 +5,6 @@ README.md linguist-documentation
 # really just ignoring for the language stats
 *.html linguist-vendored
 
-Linguist::FileBlob.new("simple.js").generated?
-
 ### begin generated attribute information ###
 
 # Auto detect text files and perform LF normalization

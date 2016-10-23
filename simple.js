@@ -1,11 +1,7 @@
-// create the simple object in the global namespace
 var simple = simple || {};
-// create a generators namespace
 simple.generators = {};
-// define a class for the web page objects
 simple.Element = function () {
     this.children = [];
-    // create things that won't be in the diff
     this.silent = {};
     this.tagName = 'DIV';
 };
@@ -99,9 +95,7 @@ simple.Element.prototype.addChild = function addChild(child) {
     }
     return this;
 };
-// create the base page object
 simple.base = new simple.Element();
-// add the document add it's child
 simple.base.addChild(new simple.Element().build(document.documentElement));
 console.log(simple.base.children);
 console.log(simple.base.render());

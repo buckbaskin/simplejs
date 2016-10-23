@@ -4,7 +4,8 @@
   "description": "Do web page manipulation in a simple way.",
   "main": "simple.js",
   "dependencies": {
-    "typescript": ">2.0.0"
+    "typescript": ">=2.0.0",
+    "tslint": ">=3.15.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0"
@@ -21,7 +22,7 @@
     "render"
   ],
   "author": "Buck Baskin",
-  "license": "MIT License, LICENSE.md",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/buckbaskin/simplr/issues"
   },

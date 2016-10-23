@@ -1,4 +1,4 @@
-simplejs
+simplr
 ---
 
-Do web page manipulation in a simple way.
+Do web page manipulation in a simple (functional?) way.

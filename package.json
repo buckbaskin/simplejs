@@ -1,32 +1,29 @@
 {
-  "name": "simplejs",
+  "name": "simplr",
   "version": "0.0.1",
   "description": "Do web page manipulation in a simple way.",
   "main": "simple.js",
   "dependencies": {
-    "typescript": "^2.0.3"
-  },
-  "devDependencies": {
-    'typescript'
+    "typescript": ">2.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/buckbaskin/simplejs.git"
+    "url": "git+https://github.com/buckbaskin/simplr.git"
   },
   "keywords": [
     "HTML",
     "JavaScript",
-    "simplejs",
+    "simplr",
     "simple",
     "render"
   ],
   "author": "Buck Baskin",
   "license": "MIT License, LICENSE.md",
   "bugs": {
-    "url": "https://github.com/buckbaskin/simplejs/issues"
+    "url": "https://github.com/buckbaskin/simplr/issues"
   },
-  "homepage": "https://github.com/buckbaskin/simplejs/blob/master/README.md"
+  "homepage": "https://github.com/buckbaskin/simplr"
 }

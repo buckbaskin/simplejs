@@ -58,19 +58,23 @@ simple.Element.prototype.render = function render() {
     }
     return this.outerHtml;
 };
-simple.Element.prototype.renderScript = function renderAsScript() {
+simple.Element.prototype.renderAsScript = function renderAsScript() {
     var startHtml = '<script';
-    if (this.type !== undefined) {
-        startHtml += ' type="' + this.type + '"';
-    }
-    if (this.src !== undefined) {
-        startHtml += ' src="' + this.src + '"';
+    var elements = ['async', 'charset', 'defer', 'src', 'type'];
+    for (var item in elements) {
+        if (this[elements[item]] !== undefined) {
+            startHtml += ' ' + elements[item] + '="' + this[elements[item]] + '"';
+        }
+        else {
+            console.log('fail check ' + elements[item]);
+        }
     }
     startHtml += '>';
     var endHtml = '</script>';
     var innerHtmlList = [];
     for (var i = this.children.length - 1; i >= 0; i--) {
         var child = this.children[i];
+        console.log('script child ' + child);
         innerHtmlList.push(child.render());
     }
     ;

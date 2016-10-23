@@ -8,7 +8,9 @@
     "tslint": ">=3.15.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0"
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "lint": "tslint simple.ts",
+    "compile": "tsc simple.ts"
   },
   "repository": {
     "type": "git",

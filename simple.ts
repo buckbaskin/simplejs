@@ -37,6 +37,9 @@ simple.Element.prototype.build = function build(html_element) {
         }
     }
 
+    if (html_element.tagName === 'BODY') {
+        console.log('BODY: '+html_element.childNodes.length);
+    }
     for (var i = html_element.childNodes.length - 1; i >= 0; i--) {
         var child = html_element.childNodes[i];
         this.children.push((new simple.Element()).build(child));

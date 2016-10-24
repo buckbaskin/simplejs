@@ -10,7 +10,12 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="qunit-2.0.1.js"></script>
-  <script src="../simple.js"></script>
+  <script defer=false async=false src="../simple.js"></script>
+  <script type="text/javascript">
+    window.onload = function() {
+      console.log("alternate loader");
+    };
+  </script>
   <script>
     QUnit.module("basic"); // see http://benalman.com/talks/unit-testing-qunit.html#34
     QUnit.test( "a basic test example", function( assert ) {
@@ -21,8 +26,13 @@
     QUnit.module("simplr tests");
     QUnit.test("the first simplr test", function( assert ) {
       assert.expect(1);
+      simple_loader();
+      console.log("test: simple.base = "+simple.base);
       simple.base.render();
-      assert.equal(base.inner_html, base.innerHTML);
+      assert.equal(
+        simple.base.inner_html.replace(/\s/g, ""),
+        simple.base.innerHTML.replace(/\s/g, "")
+        );
     });
   </script>
 </body>

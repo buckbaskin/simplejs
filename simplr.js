@@ -36,8 +36,6 @@ var simple = (function (window, document) {
     };
     simple.Element.prototype.build = function build(html_element) {
         this.silent.element = html_element;
-        console.log("build(htmle " + html_element + " tagname " +
-            html_element.tagName + " outer " + html_element.outerHTML + ")");
         for (var key in html_element) {
             if (html_element.hasOwnProperty(key)) {
                 this[key] = html_element[key];
@@ -101,12 +99,11 @@ var simple = (function (window, document) {
         return !!this.nodeValue.trim() ? this.nodeValue.trim() : "";
     };
     simple.Element.prototype.renderAsMeta = function renderAsMeta() {
-        console.log("renderAsMeta");
+        // console.log("renderAsMeta");
         var metaHTML = "<meta";
         if (this.charset !== undefined) {
             metaHTML += " charset=\"" + this.charset + "\"";
         }
-        console.log("meta: " + metaHTML + ">");
         return metaHTML + ">";
     };
     simple.Element.prototype.renderAsScript = function renderAsScript() {

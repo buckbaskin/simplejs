@@ -43,9 +43,6 @@ simple.Element.prototype.special_keys = {
 
 simple.Element.prototype.build = function build(html_element): Element {
     this.silent.element = html_element;
-    console.log("build(htmle " + html_element + " tagname " +
-        html_element.tagName + " outer " + html_element.outerHTML + ")");
-
     for (let key in html_element) {
         if (html_element.hasOwnProperty(key)) {
             this[key] = html_element[key];
@@ -112,12 +109,11 @@ simple.Element.prototype.renderAsText = function renderAsText(): string {
 };
 
 simple.Element.prototype.renderAsMeta = function renderAsMeta(): string {
-    console.log("renderAsMeta");
+    // console.log("renderAsMeta");
     let metaHTML = "<meta";
     if (this.charset !== undefined) {
         metaHTML += " charset=\"" + this.charset + "\"";
     }
-    console.log("meta: " + metaHTML + ">");
     return metaHTML + ">";
 };
 

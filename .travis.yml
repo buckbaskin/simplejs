@@ -10,4 +10,4 @@ before_script:
  - npm install grunt-contrib-qunit --save-dev
 
 script:
- - grunt test --verbose --force
+ - grunt test --verbose

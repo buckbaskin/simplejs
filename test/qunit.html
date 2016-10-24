@@ -10,11 +10,9 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="qunit-2.0.1.js"></script>
-  <script defer=false async=false src="../simple.js"></script>
+  <script type="text/javascript" src="../simple.js"></script>
   <script type="text/javascript">
-    window.onload = function() {
-      console.log("alternate loader");
-    };
+    console.log("alternate: "+simple.base);
   </script>
   <script>
     QUnit.module("basic"); // see http://benalman.com/talks/unit-testing-qunit.html#34

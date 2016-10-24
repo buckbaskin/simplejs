@@ -6,8 +6,8 @@ node_js:
  - node
  - iojs
 
-before_script:
- - npm install grunt-contrib-qunit --save-dev
+# before_script:
+#  - npm install grunt-contrib-qunit --save-dev
 
 script:
  - npm run compile

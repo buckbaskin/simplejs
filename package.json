@@ -9,8 +9,8 @@
   },
   "scripts": {
     "test": "grunt test",
-    "lint": "tslint simple.ts",
-    "compile": "tsc simple.ts"
+    "lint": "tslint *.ts test/**/*.ts",
+    "compile": "tsc --pretty"
   },
   "repository": {
     "type": "git",

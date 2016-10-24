@@ -6,7 +6,7 @@ var simple = (function (window, document) {
         Element: undefined,
         generators: undefined,
         loader: undefined,
-        render: undefined
+        render: undefined,
     };
     // create a generators namespace
     simple.generators = {};
@@ -29,7 +29,7 @@ var simple = (function (window, document) {
         // script
         async: 1, charset: 1, defer: 1, src: 1, type: 1,
         // text
-        nodeName: 1, nodeValue: 1
+        nodeName: 1, nodeValue: 1,
     };
     simple.Element.prototype.build = function build(html_element) {
         this.silent.element = html_element;

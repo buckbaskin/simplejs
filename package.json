@@ -8,7 +8,7 @@
     "tslint": ">=3.15.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 0",
+    "test": "grunt test",
     "lint": "tslint simple.ts",
     "compile": "tsc simple.ts"
   },
@@ -28,5 +28,9 @@
   "bugs": {
     "url": "https://github.com/buckbaskin/simplr/issues"
   },
-  "homepage": "https://github.com/buckbaskin/simplr"
+  "homepage": "https://github.com/buckbaskin/simplr",
+  "devDependencies": {
+    "qunitjs": "^2.0.1",
+    "grunt": "*"
+  }
 }

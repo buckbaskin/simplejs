@@ -21,5 +21,5 @@ QUnit.test("the second simplr test", function (assert) {
     simple.loader(); // "onload"
     simple.render();
     // assert that the page is re-rendered the same as before
-    assert.equal(simple.base.inner_html, simple.base.innerHTML);
+    assert.equal(simple.base.inner_html.replace(/\s/g, "").toLowerCase(), simple.base.innerHTML.replace(/\s/g, "").toLowerCase(), "Check to see if the rendering is the same as the original");
 });

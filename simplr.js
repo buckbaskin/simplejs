@@ -30,9 +30,14 @@ var simple = (function (window, document) {
         async: 1, charset: 1, defer: 1, src: 1, type: 1,
         // text
         nodeName: 1, nodeValue: 1,
+        // meta
+        // charset: 1, 
+        content: 1, name: 1, "http-equiv": 1,
     };
     simple.Element.prototype.build = function build(html_element) {
         this.silent.element = html_element;
+        console.log("build(htmle " + html_element + " tagname " +
+            html_element.tagName + " outer " + html_element.outerHTML + ")");
         for (var key in html_element) {
             if (html_element.hasOwnProperty(key)) {
                 this[key] = html_element[key];
@@ -42,9 +47,13 @@ var simple = (function (window, document) {
             }
         }
         if (html_element.tagName !== undefined) {
-            if (html_element.tagName === "P") {
-            }
             this.tagName === html_element.tagName;
+            if (html_element.tagName === "META") {
+                if (html_element.ownerDocument !== undefined &&
+                    html_element.ownerDocument.charset !== undefined) {
+                    this.charset = html_element.ownerDocument.charset;
+                }
+            }
         }
         this.children = [];
         for (var i = html_element.childNodes.length - 1; i >= 0; i--) {
@@ -60,6 +69,9 @@ var simple = (function (window, document) {
         }
         if (this.tagName === "SCRIPT") {
             return this.renderAsScript();
+        }
+        if (this.tagName === "META") {
+            return this.renderAsMeta();
         }
         var start_html = "<" + this.tagName.toLowerCase() + ">";
         var end_html = "</" + this.tagName.toLowerCase() + ">";
@@ -87,6 +99,15 @@ var simple = (function (window, document) {
     };
     simple.Element.prototype.renderAsText = function renderAsText() {
         return !!this.nodeValue.trim() ? this.nodeValue.trim() : "";
+    };
+    simple.Element.prototype.renderAsMeta = function renderAsMeta() {
+        console.log("renderAsMeta");
+        var metaHTML = "<meta";
+        if (this.charset !== undefined) {
+            metaHTML += " charset=\"" + this.charset + "\"";
+        }
+        console.log("meta: " + metaHTML + ">");
+        return metaHTML + ">";
     };
     simple.Element.prototype.renderAsScript = function renderAsScript() {
         var start_html = "<script";
@@ -128,7 +149,8 @@ var simple = (function (window, document) {
         return this;
     };
     simple.Element.prototype.shallowEquals = function shallowEquals(key, self, other) {
-        if (key === "silent") {
+        if (key === "silent" ||
+            key.indexOf("html") !== -1 || key.indexOf("HTML") !== -1) {
             return true;
         }
         if (self[key] === undefined) {

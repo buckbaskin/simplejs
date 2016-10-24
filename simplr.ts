@@ -36,10 +36,15 @@ simple.Element.prototype.special_keys = {
     async: 1, charset: 1, defer: 1, src: 1, type: 1,
     // text
     nodeName: 1, nodeValue: 1,
+    // meta
+    // charset: 1, 
+    content: 1, name: 1, "http-equiv": 1,
 };
 
 simple.Element.prototype.build = function build(html_element): Element {
     this.silent.element = html_element;
+    console.log("build(htmle " + html_element + " tagname " +
+        html_element.tagName + " outer " + html_element.outerHTML + ")");
 
     for (let key in html_element) {
         if (html_element.hasOwnProperty(key)) {
@@ -50,10 +55,13 @@ simple.Element.prototype.build = function build(html_element): Element {
     }
 
     if (html_element.tagName !== undefined) {
-        if (html_element.tagName === "P") {
-            // console.log("paragraph tag");
-        }
         this.tagName === html_element.tagName;
+        if (html_element.tagName === "META") {
+            if (html_element.ownerDocument !== undefined &&
+                html_element.ownerDocument.charset !== undefined) {
+            this.charset = html_element.ownerDocument.charset;
+            }
+        }
     }
 
     this.children = [];
@@ -70,6 +78,9 @@ simple.Element.prototype.render = function render(): string {
     }
     if (this.tagName === "SCRIPT") {
         return this.renderAsScript();
+    }
+    if (this.tagName === "META") {
+        return this.renderAsMeta();
     }
     let start_html = "<" + this.tagName.toLowerCase() + ">";
     const end_html = "</" + this.tagName.toLowerCase() + ">";
@@ -98,6 +109,16 @@ simple.Element.prototype.render = function render(): string {
 
 simple.Element.prototype.renderAsText = function renderAsText(): string {
     return !!this.nodeValue.trim() ? this.nodeValue.trim() : "";
+};
+
+simple.Element.prototype.renderAsMeta = function renderAsMeta(): string {
+    console.log("renderAsMeta");
+    let metaHTML = "<meta";
+    if (this.charset !== undefined) {
+        metaHTML += " charset=\"" + this.charset + "\"";
+    }
+    console.log("meta: " + metaHTML + ">");
+    return metaHTML + ">";
 };
 
 simple.Element.prototype.renderAsScript = function renderAsScript(): string {
@@ -143,7 +164,8 @@ simple.Element.prototype.addChild = function addChild(child: Element): Element {
 
 simple.Element.prototype.shallowEquals = function shallowEquals(
     key: string, self: Element, other: Element): boolean {
-    if (key === "silent") {
+    if (key === "silent" ||
+        key.indexOf("html") !== -1 || key.indexOf("HTML") !== -1) {
         return true;
     }
     if (self[key] === undefined) {

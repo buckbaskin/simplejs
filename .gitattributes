@@ -4,6 +4,8 @@ README.md linguist-documentation
 
 # really just ignoring for the language stats
 *.html linguist-vendored
+*.css linguist-vendored
+*.js linguist-vendored
 
 ### begin generated attribute information ###
 

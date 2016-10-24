@@ -2,10 +2,11 @@
 // tslint:disable-next-line:no-var-keyword
 var simple = (function(window, document) {
 var simple = {
-    generators: undefined,
-    Element: undefined,
     base: undefined,
+    Element: undefined,
+    generators: undefined,
     loader: undefined,
+    render: undefined,
 };
 
 // create a generators namespace
@@ -19,6 +20,10 @@ simple.Element = function() {
     this.silent = {};
 
     this.tagName = "DIV";
+};
+
+simple.render = function render() {
+    this.base.render();
 };
 
 simple.Element.prototype.special_keys = {

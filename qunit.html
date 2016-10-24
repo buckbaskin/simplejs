@@ -12,7 +12,7 @@
   <script src="test/qunit-2.0.1.js"></script>
   <script type="text/javascript" src="simple.js"></script>
   <script>
-    QUnit.module("basic"); // see http://benalman.com/talks/unit-testing-qunit.html#34
+    QUnit.module("basic");
     QUnit.test( "a basic test example", function( assert ) {
       assert.expect(1); // expect 1 qunit test
       var value = "hello";
@@ -22,11 +22,17 @@
       beforeEach: function() {}
     });
     QUnit.test("the first simplr test", function( assert ) {
-      console.log("first simplr test.");
       assert.strictEqual(1, 1);
       assert.ok(simple);
       assert.ok(simple.base);
       assert.ok(simple.loader);
+    });
+    QUnit.test("the second simplr test", function( assert ) {
+      console.log("second simplr test.");
+      simple.loader(); // "onload"
+      simple.render();
+      // assert that the page is re-rendered the same as before
+      assert.equal(simple.base.inner_html, simple.base.innerHTML);
     });
   </script>
 </body>

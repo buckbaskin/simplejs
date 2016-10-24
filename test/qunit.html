@@ -21,10 +21,14 @@
       var value = "hello";
       assert.equal( value, "hello", "We expect value to be hello" );
     });
-    QUnit.module("simplr tests");
+    QUnit.module("simplr tests", {
+      beforeEach: function() {
+        simple.loader();
+      }
+    });
     QUnit.test("the first simplr test", function( assert ) {
       assert.expect(1);
-      simple_loader();
+      simple.loader();
       console.log("test: simple.base = "+simple.base);
       simple.base.render();
       assert.equal(

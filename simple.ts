@@ -1,6 +1,12 @@
 // create the simple object in the global namespace
 // tslint:disable-next-line:no-var-keyword
-var simple = simple || {};
+var simple = (function(window, document) {
+var simple = {
+    generators: undefined,
+    Element: undefined,
+    base: undefined,
+    loader: undefined,
+};
 
 const pr = {nt: undefined};
 pr.nt = console.log;
@@ -142,11 +148,13 @@ simple.Element.prototype.addChild = function addChild(child: Element): Element {
 pr.nt("simple.base loaded");
 simple.base = new simple.Element();
 
-const simple_loader = function simple_loader() {
+simple.loader = function simple_loader() {
     // pr.nt("simple_loader load");
     simple.base = new simple.Element().build(document.documentElement);
     // pr.nt("simple.base = "+simple.base);
     // pr.nt("simple_loader done");
 };
+return simple;
+})(window, document);
 
-window.onload = simple_loader;
+window.onload = simple.loader;

@@ -13,7 +13,7 @@
   <script>
     QUnit.module("basic"); // see http://benalman.com/talks/unit-testing-qunit.html#34
     QUnit.test( "a basic test example", function( assert ) {
-      expect(1); // expect 1 qunit test
+      assert.expect(1); // expect 1 qunit test
       var value = "hello";
       assert.equal( value, "hello", "We expect value to be hello" );
     });

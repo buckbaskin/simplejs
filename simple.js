@@ -81,7 +81,6 @@ simple.Element.prototype.render = function render() {
     else {
         this.outer_html = start_html + "\n" + this.inner_html.trim() + "\n" + end_html;
     }
-    pr.nt("render done?");
     return this.outer_html;
 };
 simple.Element.prototype.renderAsText = function renderAsText() {
@@ -134,7 +133,4 @@ simple.base = new simple.Element();
 // add the document add it's child
 window.onload = function onload() {
     simple.base = new simple.Element().build(document.documentElement);
-    pr.nt(simple.base.children);
-    pr.nt("Render!");
-    pr.nt(simple.base.children[0].render());
 };

@@ -10,6 +10,7 @@
   <div id="qunit"></div>
   <div id="qunit-fixture"></div>
   <script src="qunit-2.0.1.js"></script>
+  <script src="../simple.js"></script>
   <script>
     QUnit.module("basic"); // see http://benalman.com/talks/unit-testing-qunit.html#34
     QUnit.test( "a basic test example", function( assert ) {
@@ -18,6 +19,11 @@
       assert.equal( value, "hello", "We expect value to be hello" );
     });
     QUnit.module("simplr tests");
+    QUnit.test("the first simplr test", function( assert ) {
+      assert.expect(1);
+      simple.base.render();
+      assert.equal(base.inner_html, base.innerHTML);
+    });
   </script>
 </body>
 </html>

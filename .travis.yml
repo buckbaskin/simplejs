@@ -10,4 +10,6 @@ before_script:
  - npm install grunt-contrib-qunit --save-dev
 
 script:
+ - npm run compile
+ - npm run lint
  - grunt test --verbose

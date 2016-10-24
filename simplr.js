@@ -79,7 +79,9 @@ var simple = (function (window, document) {
             this.outer_html = start_html + end_html;
         }
         else {
-            this.outer_html = start_html + "\n" + this.inner_html.trim() + "\n" + end_html;
+            this.outer_html = (start_html + "\n" +
+                this.inner_html.trim() + "\n" +
+                end_html);
         }
         return this.outer_html;
     };
@@ -91,7 +93,8 @@ var simple = (function (window, document) {
         var elements = ["async", "charset", "defer", "src", "type"];
         for (var item in elements) {
             if (this[elements[item]] !== undefined && this[elements[item]] !== "") {
-                start_html += " " + elements[item] + "=\"" + this[elements[item]] + "\"";
+                start_html += (" " + elements[item] + "=\"" +
+                    this[elements[item]] + "\"");
             }
             else {
             }
@@ -123,6 +126,53 @@ var simple = (function (window, document) {
             this.children.push(child);
         }
         return this;
+    };
+    simple.Element.prototype.shallowEquals = function shallowEquals(key, self, other) {
+        if (key === "silent") {
+            return true;
+        }
+        if (self[key] === undefined) {
+            return other[key] === undefined;
+        }
+        if (self[key] === null) {
+            return other[key] === null;
+        }
+        if (self[key] instanceof Boolean ||
+            self[key] instanceof Number ||
+            self[key] instanceof String) {
+            return self[key] === other[key];
+        }
+        if (self[key] instanceof Object && other[key] instanceof Object) {
+            if (self[key] instanceof Array && other[key] instanceof Array) {
+                // if they're both arrays, match length
+                return self[key].length === other[key].length;
+            }
+            else if (self[key] instanceof Array || other[key] instanceof Array) {
+                // if only one is an array, they don't match
+                return false;
+            }
+            // for now, I'm just going to say if they're both objects they're okay
+            return true;
+        }
+        // default to not matching
+        return false;
+    };
+    simple.Element.prototype.shallowDiff = function shallowDiff(other) {
+        var myKeys = Object.keys(this);
+        var otherKeys = Object.keys(other);
+        for (var i = myKeys.length - 1; i >= 0; i--) {
+            var key = myKeys[i];
+            if (!this.shallowEquals(key, this, other)) {
+                return false;
+            }
+        }
+        for (var i = otherKeys.length - 1; i >= 0; i--) {
+            var key = otherKeys[i];
+            if (!this.shallowEquals(key, other, this)) {
+                return false;
+            }
+        }
+        return true;
     };
     // create the base page object
     console.log("simple.base loaded");

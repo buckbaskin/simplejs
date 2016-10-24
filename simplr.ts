@@ -88,7 +88,10 @@ simple.Element.prototype.render = function render(): string {
     if (this.inner_html === "") {
         this.outer_html = start_html + end_html;
     } else {
-        this.outer_html = start_html + "\n" + this.inner_html.trim() + "\n" + end_html;
+        this.outer_html = (
+            start_html + "\n" +
+            this.inner_html.trim() + "\n" +
+            end_html);
     }
     return this.outer_html;
 };
@@ -102,7 +105,9 @@ simple.Element.prototype.renderAsScript = function renderAsScript(): string {
     const elements = ["async", "charset", "defer", "src", "type"];
     for (let item in elements) {
         if (this[elements[item]] !== undefined && this[elements[item]] !== "") {
-            start_html += " " + elements[item] + "=\"" + this[elements[item]] + "\"";
+            start_html += (
+                " " + elements[item] + "=\"" +
+                this[elements[item]] + "\"");
         } else {
             // console.log("fail check " + elements[item]);
         }
@@ -128,11 +133,62 @@ simple.Element.prototype.renderAsScript = function renderAsScript(): string {
     }
     return this.outer_html;
 };
+
 simple.Element.prototype.addChild = function addChild(child: Element): Element {
     if (child instanceof simple.Element) {
         this.children.push(child);
     }
     return this;
+};
+
+simple.Element.prototype.shallowEquals = function shallowEquals(
+    key: string, self: Element, other: Element): boolean {
+    if (key === "silent") {
+        return true;
+    }
+    if (self[key] === undefined) {
+        return other[key] === undefined;
+    }
+    if (self[key] === null) {
+        return other[key] === null;
+    }
+    if (self[key] instanceof Boolean ||
+        self[key] instanceof Number  ||
+        self[key] instanceof String) {
+        return self[key] === other[key];
+    }
+    if (self[key] instanceof Object && other[key] instanceof Object) {
+        if (self[key] instanceof Array && other[key] instanceof Array) {
+            // if they're both arrays, match length
+            return self[key].length === other[key].length;
+        } else if (self[key] instanceof Array || other[key] instanceof Array) {
+            // if only one is an array, they don't match
+            return false;
+        }
+        // for now, I'm just going to say if they're both objects they're okay
+        return true;
+    }
+    // default to not matching
+    return false;
+};
+
+simple.Element.prototype.shallowDiff = function shallowDiff(
+    other: Element): boolean {
+    const myKeys = Object.keys(this);
+    const otherKeys = Object.keys(other);
+    for (let i = myKeys.length - 1; i >= 0; i--) {
+        let key = myKeys[i];
+        if (!this.shallowEquals(key, this, other)) {
+            return false;
+        }
+    }
+    for (let i = otherKeys.length - 1; i >= 0; i--) {
+        let key = otherKeys[i];
+        if (!this.shallowEquals(key, other, this)) {
+            return false;
+        }
+    }
+    return true;
 };
 
 // create the base page object

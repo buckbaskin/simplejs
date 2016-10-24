@@ -81,6 +81,7 @@ simple.Element.prototype.render = function render() {
     else {
         this.outer_html = start_html + "\n" + this.inner_html.trim() + "\n" + end_html;
     }
+    pr.nt("render done?");
     return this.outer_html;
 };
 simple.Element.prototype.renderAsText = function renderAsText() {

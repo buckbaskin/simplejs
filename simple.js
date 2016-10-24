@@ -7,8 +7,6 @@ var simple = (function (window, document) {
         base: undefined,
         loader: undefined
     };
-    var pr = { nt: undefined };
-    pr.nt = console.log;
     // create a generators namespace
     simple.generators = {};
     // define a class for the web page objects
@@ -30,7 +28,6 @@ var simple = (function (window, document) {
         nodeName: 1, nodeValue: 1
     };
     simple.Element.prototype.build = function build(html_element) {
-        // pr.nt("Element.build(" + html_element + ", " + html_element.tagName + ")");
         this.silent.element = html_element;
         for (var key in html_element) {
             if (html_element.hasOwnProperty(key)) {
@@ -54,15 +51,11 @@ var simple = (function (window, document) {
         return this;
     };
     simple.Element.prototype.render = function render() {
-        if (this.element !== undefined && this.silent.element.childNodes !== undefined) {
-        }
         if (this.nodeName === "#text") {
             return this.renderAsText();
         }
         if (this.tagName === "SCRIPT") {
             return this.renderAsScript();
-        }
-        if (this.tagName === "P") {
         }
         var start_html = "<" + this.tagName.toLowerCase() + ">";
         var end_html = "</" + this.tagName.toLowerCase() + ">";
@@ -87,7 +80,6 @@ var simple = (function (window, document) {
         return this.outer_html;
     };
     simple.Element.prototype.renderAsText = function renderAsText() {
-        // pr.nt("renderAsText(" + this.nodeValue.trim() + ")");
         return !!this.nodeValue.trim() ? this.nodeValue.trim() : "";
     };
     simple.Element.prototype.renderAsScript = function renderAsScript() {
@@ -105,7 +97,6 @@ var simple = (function (window, document) {
         var inner_html_list = [];
         for (var i = this.children.length - 1; i >= 0; i--) {
             var child = this.children[i];
-            // pr.nt("script child " + child);
             inner_html_list.push(child.render());
         }
         ;
@@ -124,20 +115,16 @@ var simple = (function (window, document) {
         return this.outer_html;
     };
     simple.Element.prototype.addChild = function addChild(child) {
-        // pr.nt("addChild(" + child + ")");
         if (child instanceof simple.Element) {
             this.children.push(child);
         }
         return this;
     };
     // create the base page object
-    pr.nt("simple.base loaded");
+    console.log("simple.base loaded");
     simple.base = new simple.Element();
     simple.loader = function simple_loader() {
-        // pr.nt("simple_loader load");
         simple.base = new simple.Element().build(document.documentElement);
-        // pr.nt("simple.base = "+simple.base);
-        // pr.nt("simple_loader done");
     };
     return simple;
 })(window, document);

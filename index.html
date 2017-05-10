@@ -12,11 +12,16 @@
 </head>
 
 <body>
-  Hello World!
+<div class="content">
+    <p>Interrupt</p>
+</div>
+
 <script type="text/javascript" src="simplr.js"></script>
-
-<p>Interrupt</p>
-
-<script type="text/javascript">var x = "the other string";</script>
+<script type="text/javascript">
+    var x = "the other string";
+    simple.load("template", function (contents) {
+        simple.template("content", contents);
+    });
+</script>
 </body>
 </html>

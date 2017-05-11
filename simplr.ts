@@ -4,23 +4,22 @@ let simple = (function(window, document) {
         init: undefined,
         template: undefined,
         load: undefined,
+        loadAndTemplate: undefined,
     };
     let init_ran = false;
     simple.init = function init() {
         // run code when the window loads
         if (!init_ran) { // run once
             init_ran = true;
-            console.log("init ran");
         }
-        console.log("init skipped");
     };
 
     let validate = function validate(html: string) {
         let temp = document.createElement("div");
         temp.innerHTML = html;
         if (temp.innerHTML !== html) {
-            console.log(">" + html + "<", "vs");
-            console.log(">" + temp.innerHTML + "<");
+            // console.log(">" + html + "<");
+            // console.log(">" + temp.innerHTML + "<");
         }
 
         return true;
@@ -28,13 +27,9 @@ let simple = (function(window, document) {
     };
 
     simple.template = function template(cls: string, innerHtml: string) {
-        console.log("template running");
         if (!validate(innerHtml)) {
-            console.log("Failed validation");
             return false;
-        } else {
-            console.log("passed validation");
-        }
+        } else {}
         let elements = document.getElementsByClassName(cls);
         let count = 0;
         if (elements.length === 0) {
@@ -46,6 +41,7 @@ let simple = (function(window, document) {
             count += 1;
         }
     };
+
     simple.load = function load(resourceId: string, callback: Function) {
         let xhr = new XMLHttpRequest();
         // let start time = now();
@@ -67,6 +63,14 @@ let simple = (function(window, document) {
         };
         xhr.open("GET", resourceId + ".html", true);
         xhr.send();
+    };
+
+    simple.loadAndTemplate = function loadAndTemplate(
+        resourceId: string, cls: string) {
+        console.log("load and template");
+        simple.load(resourceId, function (content) {
+            simple.template(cls, content);
+        });
     };
 
     return simple;

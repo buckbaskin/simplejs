@@ -10,7 +10,8 @@
   "scripts": {
     "test": "grunt test",
     "lint": "tslint *.ts test/**/*.ts",
-    "compile": "tsc --pretty"
+    "compile": "tsc --pretty",
+    "build": "tsc --outDir build/"
   },
   "repository": {
     "type": "git",

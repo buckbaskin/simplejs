@@ -1,13 +1,13 @@
 language: node_js
 node_js:
- - 6
+# - 6
  - node
- - iojs
+# - iojs
 
 # before_script:
 #  - npm install grunt-contrib-qunit --save-dev
 
 script:
  - npm run compile
- - npm run lint
- - grunt test --verbose
+# - npm run lint
+# - grunt test --verbose
